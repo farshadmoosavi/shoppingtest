@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    console.log(email,password);
     return (
         <div className = 'row'>
             <div className="col-lo-5 col-md-7 mx-auto">
@@ -15,12 +16,15 @@ const Login = () => {
                     <div className ="card-body border-bottom border-success">
                         <div className="form-group mt-2">
                             <label className="mb-1" htmlFor="email">Email</label>
-                            <input 
+                            <input
+                                autoComplete="off"
                                 type = "text" 
                                 className="form-control" 
                                 id = "email" 
                                 placeholder="Enter your Email"
                                 name = "email"
+                                value={email}
+                                onChange = {(e) => setEmail(e.target.value)}
                             />
                         </div>
                         <div className="form-group mt-4">
@@ -31,6 +35,8 @@ const Login = () => {
                                 id = "password" 
                                 placeholder="Enter your Password"
                                 name = "password"
+                                value={password}
+                                onChange = {(e) => setPassword(e.target.value)}
                             />
                         </div>
                     </div>
