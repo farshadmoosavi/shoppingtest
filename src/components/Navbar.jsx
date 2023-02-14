@@ -13,27 +13,24 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                             <NavLink className="nav-link active" aria-current="page" to="/dashboard"> <i className='fa fa-dashboard'></i>Dashboard</NavLink>
+                             <NavLink className="nav-link" aria-current="page" to="/dashboard" activeClassName="active"> <i className='fa fa-dashboard'></i>Dashboard</NavLink>
                         </li>
                         <li className="nav-item">
-                          <NavLink className="nav-link" to="/">Login</NavLink>
+                          <NavLink className="nav-link" to="/" activeClassName="active" exact = {true}>Login</NavLink>
                         </li>
                     
                         <li className="nav-item">
-                          <NavLink className="nav-link" to="/Register">Register</NavLink>
+                          <NavLink className="nav-link" to="/Register" activeClassName="active">Register</NavLink>
                         </li>
                 </ul>
-                    <div style={{marginRight :50}}>
+                    <div style={{marginRight: 70}}>
                         <ul className='navbar-nav'>
                             <li className="nav-item dropdown">
                                 <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                     Logout
+                                    <i className='fa fa-user circle'/>User 
                                 </NavLink>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <li><NavLink className="dropdown-item" to="#">Action</NavLink></li>
-                                     <li><NavLink className="dropdown-item" to="#">Another action</NavLink></li>
-                                     <li><hr className="dropdown-divider"/></li>
-                                     <li><NavLink className="dropdown-item" to="#">Something else here</NavLink></li>
+                                     <li><NavLink className="dropdown-item" to="#">Logout</NavLink></li>
                                 </ul>
                            </li>
                         </ul>
