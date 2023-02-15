@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    console.log(email,password);
+    useEffect(() => {
+      document.title = 'Login';
+    },[])
     return (
         <div className = 'row'>
             <div className="col-lo-5 col-md-7 mx-auto">
