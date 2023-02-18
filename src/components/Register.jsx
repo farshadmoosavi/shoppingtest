@@ -142,10 +142,10 @@ const Register = () => {
                             <div className="col lg-8">
                                 <div className="form-check">
                                      <input 
-                                          name = "gender"
-                                          type="radio" 
-                                          value='male'
-                                          id='male'
+                                          name = "recieveNewsLetters"
+                                          type="checkbox" 
+                                          value='true'
+                                          id='recieveNewsLetters'
                                           className="form-check-input" 
                                           checked={state.recieveNewsLetters==='true'?true:false}
                                           onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
