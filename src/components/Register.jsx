@@ -124,12 +124,30 @@ const Register = () => {
         document.title = 'Register';
       },[])
 
+    const onRegisterClick = () => {
+        let dirtyData = dirty;
+        Object.keys(dirty).forEach((element) =>{
+            dirtyData[element] = true
+        })
+        setDirty(dirtyData);
+    }
+
     return (
         <div className="row">
             <div className="col-lg-6 col-md-7 mx-auto">
                 <div className="card border-primary shadow my-3">
                     <div className="card-header border-bottom border-primary">
                         <h4 style={{fontSize :'40px'}} className='text-primary text-center'>Register</h4>
+                        <ul className="text-danger">
+                            {Object.keys(errors).map((element) => {
+                                if(dirty[element])
+                                {return errors[element].map((err) =>{
+                                    return <li key={err}>{err}</li>
+                                })}else{
+                                    return "";
+                                }
+                            })}
+                        </ul>
                     </div>
                     <div className="card-body border-primary">
                         
@@ -251,6 +269,17 @@ const Register = () => {
                         </div>
 
                     </div>
+                    {/*footer*/}
+                    <div className="card-footer text-center">
+                        <div className="m-1">{message}</div>
+                        <div>
+                            <button 
+                                className="btn btn-primary m-2"
+                                onClick={onRegisterClick}
+                            >Register</button>
+                        </div>
+                    </div>
+                    {/* end of footer */}
                 </div>
             </div>
         </div>
