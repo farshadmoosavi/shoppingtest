@@ -12,17 +12,17 @@ const Register = () => {
         recieveNewsLetters: false
     });
     const[countries, setCountries] = useState([
-        'United States of America',
-        'Switzerland',
-        'Norway',
-        'Turkey',
-        'Britain',
-        'Iran',
-        'Germany',
-        'Japan',
-        'France',
-        'Brazil',
-        'Canada'
+        {id:1, countryName: 'United States of America'},
+        {id:2, countryName: 'Switzerland'},
+        {id:3, countryName: 'Norway'},
+        {id:4, countryName: 'Turkey'},
+        {id:5, countryName: 'Britain'},
+        {id:5, countryName: 'Iran'},
+        {id:6, countryName: 'Germany'},
+        {id:6, countryName: 'Japan'},
+        {id:7, countryName: 'France'},
+        {id:8, countryName: 'Brazil'},
+        {id:9, countryName: 'Canada'},
     ])
     
     
@@ -47,7 +47,7 @@ const Register = () => {
                                     type="text" 
                                     className="form-control" 
                                     value={state.email} 
-                                    onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                    onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 />
                         </div>
 
@@ -60,7 +60,7 @@ const Register = () => {
                                     type="password" 
                                     className="form-control" 
                                     value={state.password} 
-                                    onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                    onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 />
                         </div>
 
@@ -73,7 +73,7 @@ const Register = () => {
                                     type="text" 
                                     className="form-control" 
                                     value={state.fullName} 
-                                    onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                    onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 />
                         </div>
 
@@ -86,7 +86,7 @@ const Register = () => {
                                     type="date" 
                                     className="form-control" 
                                     value={state.dateOfBirth} 
-                                    onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                    onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 />
                         </div>
 
@@ -102,7 +102,7 @@ const Register = () => {
                                           id='male'
                                           className="form-check-input" 
                                           checked={state.gender==='male'?true:false}
-                                          onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                          onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                        />
                                        <label htmlFor="male" className="form-check-inline">Male</label>
                                 </div>
@@ -114,7 +114,7 @@ const Register = () => {
                                           id='female'
                                           className="form-check-input" 
                                           checked={state.gender==='male'?true:false}
-                                          onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                          onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                        />
                                        <label htmlFor="female" className="form-check-inline">Female</label>
                                 </div>
@@ -124,20 +124,37 @@ const Register = () => {
                         {/* country */}
                         <div className="form-group form-row my-2">
                             <label className="col lg-4" htmlFor="country">Country</label>
-                                <div className="col lg-8">
                                 <select 
                                     id='dateOfBirth'
                                     name = "country"
                                     className="form-control" 
-                                    value={countries} 
-                                    onChange={(e) => setState(...state, e.target.name = e.target.value)}
+                                    value={state.countries} 
+                                    onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 >
                                     {countries.map((res) => (
-                                        <option key={res} vlaue={res}>{res}</option>
+                                        <option key={res.id} vlaue={res.id}>{res.countryName}</option>
                                     ))}
                                 </select>
-                                </div>
                         </div>
+                            {/* recieve NewsLetters */}
+                         <div className="form-group form-row my-2">
+                            <label className="col lg-4">Gender</label>
+                            <div className="col lg-8">
+                                <div className="form-check">
+                                     <input 
+                                          name = "gender"
+                                          type="radio" 
+                                          value='male'
+                                          id='male'
+                                          className="form-check-input" 
+                                          checked={state.recieveNewsLetters==='true'?true:false}
+                                          onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
+                                       />
+                                       <label htmlFor="recieveNewsLetters" className="form-check-inline">RecieveNewsLetters</label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
