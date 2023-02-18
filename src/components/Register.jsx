@@ -9,7 +9,7 @@ const Register = () => {
         dateOfBirth: '',
         country: '',
         gender: '',
-        recieveNewsLetters: false
+        recieveNewsLetters: ''
     });
     const[countries, setCountries] = useState([
         {id:1, countryName: 'United States of America'},
@@ -24,11 +24,106 @@ const Register = () => {
         {id:8, countryName: 'Brazil'},
         {id:9, countryName: 'Canada'},
     ])
-    
+    const[errors,setErrors] = useState({
+        email: [],
+        password: [],
+        fullName: [],
+        dateOfBirth: [],
+        country: [],
+        gender: [],
+        recieveNewsLetters: []
+    });
+
+    const[dirty, setDirty] = useState({
+        email: false,
+        password: false,
+        fullName: false,
+        dateOfBirth: false,
+        country: false,
+        gender: false,
+        recieveNewsLetters: false
+    });
+
+    const[message, setMessage] = useState();
+
+    const validate = () => {
+        let errorsData = {};
+
+        //Email
+        errorsData.email = [];
+        // Email can't be blank
+        if(!state.email)
+        {
+            errorsData.email.push("Email can't be blank");
+        }
+        // Email Reggex
+        const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if(state.email)
+        {
+            if(!validEmailRegex.test(state))
+            {
+                errorsData.email.push("Enter a correct form of Email address!");
+            }
+        }
+
+        //password
+        errorsData.password = [];
+        // Email can't be blank
+        if(!state.password)
+        {
+            errorsData.password.push("password can't be blank");
+        }
+        // Email Reggex: password between 6 to 20 characters 
+        //which contain at least one numeric digit, one uppercase and one lowercase letter
+        const validpasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        if(state.password)
+        {
+            if(!validEmailRegex.test(state))
+            {
+                errorsData.password.push("Enter a correct form of password which is between 6 to 20 characters which contains at least one numeric digit, one uppercase and one lowercase letter!");
+            }
+        }
+
+        //fullName
+        errorsData.fullName = [];
+        // fullName can't be blank
+        if(!state.fullName)
+        {
+            errorsData.fullName.push("fullName can't be blank");
+        }
+
+        //dateOfBirth
+        errorsData.dateOfBirth = [];
+        // dateOfBirth can't be blank
+        if(!state.dateOfBirth)
+        {
+            errorsData.dateOfBirth.push("dateOfBirth can't be blank");
+        }
+
+        //Gender
+        errorsData.gender = [];
+        // dateOfBirth can't be blank
+        if(!state.gender)
+        {
+            errorsData.gender.push("select a country");
+        }
+
+        //country
+        errorsData.country = [];
+        // dateOfBirth can't be blank
+        if(!state.country)
+        {
+            errorsData.gender.push("select a gender either male or female");
+        }
+        setErrors(errorsData);
+    }
+
+    useEffect(validate,[state])
     
     useEffect(() => {
         document.title = 'Register';
       },[])
+
     return (
         <div className="row">
             <div className="col-lg-6 col-md-7 mx-auto">
