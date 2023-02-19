@@ -57,10 +57,11 @@ const Register = () => {
             errorsData.email.push("Email can't be blank");
         }
         // Email Reggex
-        const validEmailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        ;
         if(state.email)
         {
-            if(!validEmailRegex.test(state))
+            if(!validEmailRegex.test(state.email))
             {
                 errorsData.email.push("Enter a correct form of Email address!");
             }
@@ -71,16 +72,16 @@ const Register = () => {
         // Email can't be blank
         if(!state.password)
         {
-            errorsData.password.push("password can't be blank");
+            errorsData.password.push("Password can't be blank");
         }
-        // Email Reggex: password between 6 to 20 characters 
+        // password Reggex: password between 6 to 20 characters 
         //which contain at least one numeric digit, one uppercase and one lowercase letter
-        const validpasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        const validpasswordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{8,}$/;
         if(state.password)
         {
-            if(!validEmailRegex.test(state))
+            if(!validpasswordRegex.test(state.password))
             {
-                errorsData.password.push("Enter a correct form of password which is between 6 to 20 characters which contains at least one numeric digit, one uppercase and one lowercase letter!");
+                errorsData.password.push("Enter a correct form of password which is at least 8 characters and contains at least one numeric digit and one letter!");
             }
         }
 
@@ -89,7 +90,7 @@ const Register = () => {
         // fullName can't be blank
         if(!state.fullName)
         {
-            errorsData.fullName.push("fullName can't be blank");
+            errorsData.fullName.push("Full Name can't be blank");
         }
 
         //dateOfBirth
@@ -97,7 +98,7 @@ const Register = () => {
         // dateOfBirth can't be blank
         if(!state.dateOfBirth)
         {
-            errorsData.dateOfBirth.push("dateOfBirth can't be blank");
+            errorsData.dateOfBirth.push("DateOfBirth can't be blank");
         }
 
         //Gender
@@ -105,7 +106,7 @@ const Register = () => {
         // dateOfBirth can't be blank
         if(!state.gender)
         {
-            errorsData.gender.push("select a country");
+            errorsData.gender.push("elect a gender either male or female");
         }
 
         //country
@@ -113,12 +114,12 @@ const Register = () => {
         // dateOfBirth can't be blank
         if(!state.country)
         {
-            errorsData.gender.push("select a gender either male or female");
+            errorsData.country.push("Select a country");
         }
         setErrors(errorsData);
     }
 
-    useEffect(validate,[state])
+    useEffect(validate,[state]);
     
     useEffect(() => {
         document.title = 'Register';
@@ -130,7 +131,8 @@ const Register = () => {
             dirtyData[element] = true
         })
         setDirty(dirtyData);
-    }
+        validate();
+    };
 
     return (
         <div className="row">
@@ -142,7 +144,7 @@ const Register = () => {
                             {Object.keys(errors).map((element) => {
                                 if(dirty[element])
                                 {return errors[element].map((err) =>{
-                                    return <li key={err}>{err}</li>
+                                    return <li key={err}> ERROR {dirty.key} :{err}</li>
                                 })}else{
                                     return "";
                                 }
@@ -226,7 +228,7 @@ const Register = () => {
                                           value='female'
                                           id='female'
                                           className="form-check-input" 
-                                          checked={state.gender==='male'?true:false}
+                                          checked={state.gender==='female'?true:false}
                                           onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                        />
                                        <label htmlFor="female" className="form-check-inline">Female</label>
@@ -238,10 +240,10 @@ const Register = () => {
                         <div className="form-group form-row my-2">
                             <label className="col lg-4" htmlFor="country">Country</label>
                                 <select 
-                                    id='dateOfBirth'
+                                    id='country'
                                     name = "country"
                                     className="form-control" 
-                                    value={state.countries} 
+                                    value={state.country} 
                                     onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 >
                                     {countries.map((res) => (
