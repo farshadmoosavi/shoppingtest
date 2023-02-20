@@ -74,8 +74,8 @@ const Register = () => {
         {
             errorsData.password.push("Password can't be blank");
         }
-        // password Reggex: password between 6 to 20 characters 
-        //which contain at least one numeric digit, one uppercase and one lowercase letter
+        // password Reggex: password atleast 8 characters 
+        //which contain at least one numeric digit, one letter
         const validpasswordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{8,}$/;
         if(state.password)
         {
@@ -132,7 +132,26 @@ const Register = () => {
         })
         setDirty(dirtyData);
         validate();
+        console.log(isValid());
+        if(isValid())
+        {
+            setMessage(<span className="text-success">Success</span>)
+        }else{
+            setMessage(<span className="text-danger">Please note to the above errors</span>)
+        }
     };
+
+    const isValid = () => {
+        let valid = true;
+        for(let element in errors)
+        {
+            if(errors[element].length > 0)
+            {
+                valid = false;
+            }
+        }
+        return valid;
+    }
 
     return (
         <div className="row">
