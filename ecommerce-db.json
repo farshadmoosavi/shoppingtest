@@ -1,6 +1,9 @@
 {
   "brands": [
-    { "id": 1, "brandName": "Apple" },
+    {
+      "id": 1,
+      "brandName": "Apple"
+    },
     {
       "id": 2,
       "brandName": "Sony"
@@ -108,6 +111,16 @@
       "gender": "male",
       "country": "UK",
       "receiveNewsLetters": true
+    },
+    {
+      "email": "sdfdsfwe@dgj.sdf",
+      "password": "fwefwefwegwegweg234234",
+      "fullName": "wefwegwegweg",
+      "dateOfBirth": "2023-03-17",
+      "country": "Norway",
+      "gender": "male",
+      "receiveNewsLetters": "",
+      "id": 2
     }
   ],
   "orders": [

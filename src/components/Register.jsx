@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+
 const Register = () => {
     const[state, setState] = useState({
         email: '',
@@ -9,20 +10,21 @@ const Register = () => {
         dateOfBirth: '',
         country: '',
         gender: '',
-        recieveNewsLetters: ''
+        receiveNewsLetters: ''
     });
     const[countries, setCountries] = useState([
+        {id:0, countryName: 'None'},
         {id:1, countryName: 'United States of America'},
         {id:2, countryName: 'Switzerland'},
         {id:3, countryName: 'Norway'},
         {id:4, countryName: 'Turkey'},
         {id:5, countryName: 'Britain'},
-        {id:5, countryName: 'Iran'},
-        {id:6, countryName: 'Germany'},
-        {id:6, countryName: 'Japan'},
-        {id:7, countryName: 'France'},
-        {id:8, countryName: 'Brazil'},
-        {id:9, countryName: 'Canada'},
+        {id:6, countryName: 'Iran'},
+        {id:7, countryName: 'Germany'},
+        {id:8, countryName: 'Japan'},
+        {id:9, countryName: 'France'},
+        {id:10, countryName: 'Brazil'},
+        {id:11, countryName: 'Canada'},
     ])
     const[errors,setErrors] = useState({
         email: [],
@@ -31,7 +33,7 @@ const Register = () => {
         dateOfBirth: [],
         country: [],
         gender: [],
-        recieveNewsLetters: []
+        receiveNewsLetters: []
     });
 
     const[dirty, setDirty] = useState({
@@ -41,7 +43,7 @@ const Register = () => {
         dateOfBirth: false,
         country: false,
         gender: false,
-        recieveNewsLetters: false
+        receiveNewsLetters: false
     });
 
     const[message, setMessage] = useState();
@@ -103,7 +105,7 @@ const Register = () => {
 
         //Gender
         errorsData.gender = [];
-        // dateOfBirth can't be blank
+        // gender can't be blank
         if(!state.gender)
         {
             errorsData.gender.push("elect a gender either male or female");
@@ -111,7 +113,7 @@ const Register = () => {
 
         //country
         errorsData.country = [];
-        // dateOfBirth can't be blank
+        // country can't be blank
         if(!state.country)
         {
             errorsData.country.push("Select a country");
@@ -125,23 +127,53 @@ const Register = () => {
         document.title = 'Register';
       },[])
 
-    const onRegisterClick = () => {
+    const onRegisterClick = async () => {
         let dirtyData = dirty;
         Object.keys(dirty).forEach((element) =>{
             dirtyData[element] = true
         })
         setDirty(dirtyData);
         validate();
-        console.log(isValid());
+
         if(isValid())
         {
-            setMessage(<span className="text-success">Success</span>)
+            var body = {
+                email: state.email,
+                password: state.password,
+                fullName: state.fullName,
+                dateOfBirth: state.dateOfBirth,
+                country: state.country,
+                gender: state.gender,
+                receiveNewsLetters: state.receiveNewsLetters
+      };
+      
+            let response = await fetch("http://localhost:8000/users",{
+                method: "POST",
+                body: JSON.stringify(body),
+            headers:{
+                "Content-type": "application/json",
+            }
+        }
+        
+        );
+        console.log(response.body);
+        
+
+        if(response.ok)
+        {
+            setMessage(<span className="text-success">Successfully Registered</span>)
+        }else{
+            setMessage(<span className="text-danger">Error in database connection</span>)
+        }
+
+            // setMessage(<span className="text-success">Success</span>)
         }else{
             setMessage(<span className="text-danger">Please note to the above errors</span>)
         }
     };
 
     const isValid = () => {
+
         let valid = true;
         for(let element in errors)
         {
@@ -266,25 +298,25 @@ const Register = () => {
                                     onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                 >
                                     {countries.map((res) => (
-                                        <option key={res.id} vlaue={res.id}>{res.countryName}</option>
+                                        <option key={"countryItem"+res.id} vlaue={res.id}>{res.countryName}</option>
                                     ))}
                                 </select>
                         </div>
-                            {/* recieve NewsLetters */}
+                            {/* receive NewsLetters */}
                          <div className="form-group form-row my-2">
                             <label className="col lg-4">Gender</label>
                             <div className="col lg-8">
                                 <div className="form-check">
                                      <input 
-                                          name = "recieveNewsLetters"
+                                          name = "receiveNewsLetters"
                                           type="checkbox" 
                                           value='true'
-                                          id='recieveNewsLetters'
+                                          id='receiveNewsLetters'
                                           className="form-check-input" 
-                                          checked={state.recieveNewsLetters==='true'?true:false}
+                                          checked={state.receiveNewsLetters==='true'?true:false}
                                           onChange={(e) => setState({...state, [e.target.name] : e.target.value})}
                                        />
-                                       <label htmlFor="recieveNewsLetters" className="form-check-inline">RecieveNewsLetters</label>
+                                       <label htmlFor="receiveNewsLetters" className="form-check-inline">ReceiveNewsLetters</label>
                                 </div>
                             </div>
                         </div>
