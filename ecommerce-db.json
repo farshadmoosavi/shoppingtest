@@ -121,6 +121,16 @@
       "gender": "male",
       "receiveNewsLetters": "",
       "id": 2
+    },
+    {
+      "email": "farshaaad86@gmail.com",
+      "password": "1234asdfqwer1234",
+      "fullName": "farshad",
+      "dateOfBirth": "2023-03-09",
+      "country": "Switzerland",
+      "gender": "male",
+      "receiveNewsLetters": "",
+      "id": 3
     }
   ],
   "orders": [
