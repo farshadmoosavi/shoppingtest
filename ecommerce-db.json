@@ -131,6 +131,16 @@
       "gender": "male",
       "receiveNewsLetters": "",
       "id": 3
+    },
+    {
+      "email": "r31r13rff@feq.df",
+      "password": "fwqef313r1r",
+      "fullName": "sd",
+      "dateOfBirth": "2023-02-28",
+      "country": "Norway",
+      "gender": "male",
+      "receiveNewsLetters": "",
+      "id": 4
     }
   ],
   "orders": [

@@ -1,3 +1,4 @@
+import { Divider } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -54,7 +55,7 @@ const Register = () => {
     errorsData.email = [];
     // Email can't be blank
     if (!state.email) {
-      errorsData.email.push("Email can't be blank");
+      errorsData.email.push(" Email can't be blank");
     }
     // Email Reggex
     const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -68,7 +69,7 @@ const Register = () => {
     errorsData.password = [];
     // Email can't be blank
     if (!state.password) {
-      errorsData.password.push("Password can't be blank");
+      errorsData.password.push(" Password can't be blank");
     }
     // password Reggex: password atleast 8 characters
     //which contain at least one numeric digit, one letter
@@ -77,7 +78,7 @@ const Register = () => {
     if (state.password) {
       if (!validpasswordRegex.test(state.password)) {
         errorsData.password.push(
-          "Enter a correct form of password which is at least 8 characters and contains at least one numeric digit and one letter!"
+          " Enter a correct form of password which is at least 8 characters and contains at least one numeric digit and one letter!"
         );
       }
     }
@@ -86,28 +87,28 @@ const Register = () => {
     errorsData.fullName = [];
     // fullName can't be blank
     if (!state.fullName) {
-      errorsData.fullName.push("Full Name can't be blank");
+      errorsData.fullName.push(" Full Name can't be blank");
     }
 
     //dateOfBirth
     errorsData.dateOfBirth = [];
     // dateOfBirth can't be blank
     if (!state.dateOfBirth) {
-      errorsData.dateOfBirth.push("DateOfBirth can't be blank");
+      errorsData.dateOfBirth.push(" DateOfBirth can't be blank");
     }
 
     //Gender
     errorsData.gender = [];
     // gender can't be blank
     if (!state.gender) {
-      errorsData.gender.push("elect a gender either male or female");
+      errorsData.gender.push(" Select a gender either male or female");
     }
 
     //country
     errorsData.country = [];
     // country can't be blank
     if (!state.country) {
-      errorsData.country.push("Select a country");
+      errorsData.country.push(" Select a country");
     }
     setErrors(errorsData);
   };
@@ -204,77 +205,103 @@ const Register = () => {
           </div>
           <div className="card-body border-primary">
             {/* email */}
-            <div className="form-group form-row my-2">
-              <label className="col lg-4" htmlFor="email">
+            <div className="row mb-3">
+              <label className="col-lg-4" htmlFor="email">
                 Email
               </label>
-              <input
-                id="email"
-                name="email"
-                type="text"
-                className="form-control"
-                value={state.email}
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <div className="col-lg-8">
+                <input
+                  id="email"
+                  name="email"
+                  type="text"
+                  className="form-control"
+                  value={state.email}
+                  onChange={(e) =>
+                    setState({ ...state, [e.target.name]: e.target.value })
+                  }
+                />
+                <div className="text-danger">
+                  {dirty["email"] && errors["email"][0] ? errors["email"] : ""}
+                </div>
+              </div>
             </div>
 
             {/* password */}
-            <div className="form-group form-row my-2">
-              <label className="col lg-4" htmlFor="password">
+            <div className="row mb-3">
+              <label className="col-lg-4" htmlFor="password">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                className="form-control"
-                value={state.password}
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <div className="col-lg-8">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  className="form-control"
+                  value={state.password}
+                  onChange={(e) =>
+                    setState({ ...state, [e.target.name]: e.target.value })
+                  }
+                />
+                <div className="text-danger">
+                  {dirty["password"] && errors["password"][0]
+                    ? errors["password"]
+                    : ""}
+                </div>
+              </div>
             </div>
 
             {/* full name */}
-            <div className="form-group form-row my-2">
+            <div className="row mb-3">
               <label className="col lg-4" htmlFor="fullName">
                 Full Name
               </label>
-              <input
-                id="fullName"
-                name="fullName"
-                type="text"
-                className="form-control"
-                value={state.fullName}
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <div className="col-lg-8">
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  className="form-control"
+                  value={state.fullName}
+                  onChange={(e) =>
+                    setState({ ...state, [e.target.name]: e.target.value })
+                  }
+                />
+                <div className="text-danger">
+                  {dirty["fullName"] && errors["fullName"][0]
+                    ? errors["fullName"]
+                    : ""}
+                </div>
+              </div>
             </div>
 
             {/* date of birth */}
-            <div className="form-group form-row my-2">
+            <div className="row mb-3">
               <label className="col lg-4" htmlFor="dateOfBirth">
                 Date Of Birth
               </label>
-              <input
-                id="dateOfBirth"
-                name="dateOfBirth"
-                type="date"
-                className="form-control"
-                value={state.dateOfBirth}
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              />
+              <div className="col-lg-8">
+                <input
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  type="date"
+                  className="form-control"
+                  value={state.dateOfBirth}
+                  onChange={(e) =>
+                    setState({ ...state, [e.target.name]: e.target.value })
+                  }
+                />
+                <div className="text-danger">
+                  {dirty["dateOfBirth"] && errors["dateOfBirth"][0]
+                    ? errors["dateOfBirth"]
+                    : ""}
+                </div>
+              </div>
             </div>
 
             {/* Gender */}
-            <div className="form-group form-row my-2">
-              <label className="col lg-4">Gender</label>
-              <div className="col lg-8">
+            <div className="row mb-3">
+              <label className="col-lg-4">Gender</label>
+              <div className="col-lg-8">
                 <div className="form-check">
                   <input
                     name="gender"
@@ -303,38 +330,46 @@ const Register = () => {
                       setState({ ...state, [e.target.name]: e.target.value })
                     }
                   />
-                  <label htmlFor="female" className="form-check-inline">
+                  <label htmlFor="female" className="form-check-inline">    
                     Female
                   </label>
+                </div>
+                <div className="text-danger">
+                  {dirty["gender"] && errors["gender"][0] ? errors["gender"] : ""}
                 </div>
               </div>
             </div>
 
             {/* country */}
-            <div className="form-group form-row my-2">
-              <label className="col lg-4" htmlFor="country">
+            <div className="row mb-3">
+              <label className="col-lg-4" htmlFor="country">
                 Country
               </label>
-              <select
-                id="country"
-                name="country"
-                className="form-control"
-                value={state.country}
-                onChange={(e) =>
-                  setState({ ...state, [e.target.name]: e.target.value })
-                }
-              >
-                {countries.map((res) => (
-                  <option key={"countryItem" + res.id} vlaue={res.id}>
-                    {res.countryName}
-                  </option>
-                ))}
-              </select>
+              <div className="col-lg-8">
+                <select
+                  id="country"
+                  name="country"
+                  className="form-control"
+                  value={state.country}
+                  onChange={(e) =>
+                    setState({ ...state, [e.target.name]: e.target.value })
+                  }
+                >
+                  {countries.map((res) => (
+                    <option key={"countryItem" + res.id} vlaue={res.id}>
+                      {res.countryName}
+                    </option>
+                  ))}
+                </select>
+                <div className="text-danger">
+                  {dirty["country"] && errors["country"][0] ? errors["country"] : ""}
+                </div>
+              </div>
             </div>
             {/* receive NewsLetters */}
-            <div className="form-group form-row my-2">
-              <label className="col lg-4">Gender</label>
-              <div className="col lg-8">
+            <div className="row mb-3">
+              <label className="col-lg-4"></label>
+              <div className="col-lg-8">
                 <div className="form-check">
                   <input
                     name="receiveNewsLetters"
