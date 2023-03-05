@@ -141,6 +141,16 @@
       "gender": "male",
       "receiveNewsLetters": "",
       "id": 4
+    },
+    {
+      "email": "sdfwef@fdsfj.com",
+      "password": "qwd2d2d2d2d",
+      "fullName": "d",
+      "dateOfBirth": "2023-03-31",
+      "country": "Switzerland",
+      "gender": "male",
+      "receiveNewsLetters": "",
+      "id": 5
     }
   ],
   "orders": [

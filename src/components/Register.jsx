@@ -124,7 +124,8 @@ const Register = () => {
     Object.keys(dirty).forEach((element) => {
       dirtyData[element] = true;
     });
-    setDirty(dirtyData);
+    // setDirty(dirtyData);
+
     validate();
 
     if (isValid()) {
@@ -219,6 +220,10 @@ const Register = () => {
                   onChange={(e) =>
                     setState({ ...state, [e.target.name]: e.target.value })
                   }
+                  onBlur={(e) => {
+                    setDirty({ ...dirty, [e.target.name]: true });
+                    validate();
+                  }}
                 />
                 <div className="text-danger">
                   {dirty["email"] && errors["email"][0] ? errors["email"] : ""}
@@ -241,6 +246,10 @@ const Register = () => {
                   onChange={(e) =>
                     setState({ ...state, [e.target.name]: e.target.value })
                   }
+                  onBlur={(e) => {
+                    setDirty({ ...dirty, [e.target.name]: true });
+                    validate();
+                  }}
                 />
                 <div className="text-danger">
                   {dirty["password"] && errors["password"][0]
@@ -265,6 +274,10 @@ const Register = () => {
                   onChange={(e) =>
                     setState({ ...state, [e.target.name]: e.target.value })
                   }
+                  onBlur={(e) => {
+                    setDirty({ ...dirty, [e.target.name]: true });
+                    validate();
+                  }}
                 />
                 <div className="text-danger">
                   {dirty["fullName"] && errors["fullName"][0]
@@ -330,12 +343,14 @@ const Register = () => {
                       setState({ ...state, [e.target.name]: e.target.value })
                     }
                   />
-                  <label htmlFor="female" className="form-check-inline">    
+                  <label htmlFor="female" className="form-check-inline">
                     Female
                   </label>
                 </div>
                 <div className="text-danger">
-                  {dirty["gender"] && errors["gender"][0] ? errors["gender"] : ""}
+                  {dirty["gender"] && errors["gender"][0]
+                    ? errors["gender"]
+                    : ""}
                 </div>
               </div>
             </div>
@@ -362,7 +377,9 @@ const Register = () => {
                   ))}
                 </select>
                 <div className="text-danger">
-                  {dirty["country"] && errors["country"][0] ? errors["country"] : ""}
+                  {dirty["country"] && errors["country"][0]
+                    ? errors["country"]
+                    : ""}
                 </div>
               </div>
             </div>
