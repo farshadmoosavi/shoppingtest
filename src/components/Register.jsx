@@ -2,7 +2,7 @@ import { Divider } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
 
-const Register = () => {
+const Register = (props) => {
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -67,7 +67,7 @@ const Register = () => {
 
     //password
     errorsData.password = [];
-    // Email can't be blank
+    // password can't be blank
     if (!state.password) {
       errorsData.password.push(" Password can't be blank");
     }
@@ -152,6 +152,7 @@ const Register = () => {
         setMessage(
           <span className="text-success">Successfully Registered</span>
         );
+        props.history.replace('/dashboard');
       } else {
         setMessage(
           <span className="text-danger">Error in database connection</span>
