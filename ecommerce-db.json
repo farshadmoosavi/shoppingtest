@@ -124,7 +124,7 @@
     },
     {
       "email": "farshaaad86@gmail.com",
-      "password": "1234asdfqwer1234",
+      "password": "",
       "fullName": "farshad",
       "dateOfBirth": "2023-03-09",
       "country": "Switzerland",
@@ -151,6 +151,26 @@
       "gender": "male",
       "receiveNewsLetters": "",
       "id": 5
+    },
+    {
+      "email": "mehrax@gmail.com",
+      "password": "qwertyui1234",
+      "fullName": "mehrad",
+      "dateOfBirth": "2023-03-10",
+      "country": "Iran",
+      "gender": "male",
+      "receiveNewsLetters": "",
+      "id": 6
+    },
+    {
+      "email": "nsrynqrbanpwr26@gmail.com",
+      "password": "123412341234wqer",
+      "fullName": "nasirin",
+      "dateOfBirth": "2023-03-21",
+      "country": "Turkey",
+      "gender": "female",
+      "receiveNewsLetters": "",
+      "id": 7
     }
   ],
   "orders": [

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { UserContext } from "../UserContext";
 
 const Login = (props) => {
+  const userContext = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,12 +12,12 @@ const Login = (props) => {
 
   const [dirty, setDirty] = useState({
     email: false,
-    password: false
+    password: false,
   });
 
   const [errors, setErrors] = useState({
     email: [],
-    password: []
+    password: [],
   });
 
   const [loginMessage, setLoginMessage] = useState("");
@@ -79,12 +81,16 @@ const Login = (props) => {
       if (response.ok) {
         let responseBody = await response.json();
         if (responseBody.length > 0) {
-          usenavigate('/dashboard');
+          userContext.setUser({
+            ...userContext.user,
+            isLoggedIn: true,
+            currentUserId: responseBody[0].id,
+            currentUserName: responseBody[0].fullName,
+          });
+          usenavigate("/dashboard");
         } else {
           setLoginMessage(
-            <span className="text-danger">
-              Invalid Login, Please try again
-            </span>
+            <span className="text-danger">Invalid Login, Please try again</span>
           );
         }
       } else {
@@ -158,16 +164,17 @@ const Login = (props) => {
                 }}
               />
               <div className="text-danger">
-                {dirty["password"] && errors["password"][0] ? errors["password"] : ""}
+                {dirty["password"] && errors["password"][0]
+                  ? errors["password"]
+                  : ""}
               </div>
             </div>
           </div>
           <div className="card-footer text-center">
             <div className="m-1">{loginMessage}</div>
-            <button
-              className="btn btn-success m-2"
-              onClick={onLoginClick}
-            >Login</button>
+            <button className="btn btn-success m-2" onClick={onLoginClick}>
+              Login
+            </button>
           </div>
         </div>
       </div>

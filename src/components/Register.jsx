@@ -1,8 +1,13 @@
-import { Divider } from "@mui/material";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router";
+import { UserContext } from "../UserContext";
 
 const Register = (props) => {
+  const userContext = useContext(UserContext);
+
+  const usenavigate = useNavigate();
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -149,10 +154,19 @@ const Register = (props) => {
       console.log(response.body);
 
       if (response.ok) {
-        setMessage(
-          <span className="text-success">Successfully Registered</span>
-        );
-        props.history.replace('/dashboard');
+        let responseBody = await response.json();
+
+        userContext.setUser({
+          ...userContext.user,
+          isLoggedIn: true,
+          currentUserId: responseBody.id,
+          currentUserName: responseBody.fullName,
+        });
+
+        // setMessage(
+        //   <span className="text-success">Successfully Registered</span>
+        // );
+        usenavigate("/dashboard");
       } else {
         setMessage(
           <span className="text-danger">Error in database connection</span>
@@ -358,7 +372,7 @@ const Register = (props) => {
 
             {/* country */}
             <div className="row mb-3">
-              <label className="col-lg-4" htmlFor="country">
+              <label className="col-lg-4 " htmlFor="country">
                 Country
               </label>
               <div className="col-lg-8">

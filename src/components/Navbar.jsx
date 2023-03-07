@@ -1,45 +1,122 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 const Navbar = () => {
-    
-  return (
+  const userContext = useContext(UserContext);
+  const usenavigate = useNavigate();
 
+  const onLogoutClick = (e) => {
+    e.preventDefault();
+    userContext.setUser({
+      isLoggedIn: false,
+      currentUserId: null,
+      currentUserName: null,
+    });
+    usenavigate("/");
+  };
+
+  return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/">Frano</NavLink>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                             <NavLink className="nav-link" aria-current="page" to="/dashboard" activeClassName="active"> <i className='fa fa-dashboard'></i>Dashboard</NavLink>
-                        </li>
-                        <li className="nav-item">
-                          <NavLink className="nav-link" to="/" activeClassName="active" exact = {true}>Login</NavLink>
-                        </li>
-                    
-                        <li className="nav-item">
-                          <NavLink className="nav-link" to="/Register" activeClassName="active">Register</NavLink>
-                        </li>
-                </ul>
-                    <div style={{marginRight: 70}}>
-                        <ul className='navbar-nav'>
-                            <li className="nav-item dropdown">
-                                <NavLink className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i className='fa fa-user circle'/>User 
-                                </NavLink>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <li><NavLink className="dropdown-item" to="#">Logout</NavLink></li>
-                                </ul>
-                           </li>
-                        </ul>
-                    </div>
-                
-              </div>
-          </div>
-      </nav>
+      <div className="container-fluid">
+        <NavLink className="navbar-brand" to="/">
+          Frano
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {userContext.user.isLoggedIn ? (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  aria-current="page"
+                  to="/dashboard"
+                  activeClassName="active"
+                >
+                  {" "}
+                  <i className="fa fa-dashboard"></i>Dashboard
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+
+            {!userContext.user.isLoggedIn ? (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/"
+                  activeClassName="active"
+                  exact={true}
+                >
+                  Login
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+            {!userContext.user.isLoggedIn ? (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  to="/Register"
+                  activeClassName="active"
+                >
+                  Register
+                </NavLink>
+              </li>
+            ) : (
+              ""
+            )}
+          </ul>
+          {userContext.user.isLoggedIn ? (
+            <div style={{ marginRight: 70 }}>
+              <ul className="navbar-nav">
+                <li className="nav-item dropdown">
+                  <NavLink
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="fa fa-user circle" />
+                    {userContext.user.currentUserName}
+                  </NavLink>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <NavLink
+                        onClick={onLogoutClick}
+                        className="dropdown-item"
+                        to="#"
+                      >
+                        Logout
+                      </NavLink>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    </nav>
 
     //   <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
     //       <NavLink className="navbar-brand" to="/">Frano</NavLink>
@@ -55,12 +132,12 @@ const Navbar = () => {
     //             <NavLink className="nav-link" to="/">Login</NavLink>
     //           </li>
     //           {/* --------------- */}
-              
+
     //           {/* --------------- */}
     //           <li className="nav-item">
     //             <NavLink className="nav-link" to="/Register">Register</NavLink>
     //           </li>
-              
+
     //        </ul>
     //        <div >
     //          <ul className="navbar-nav">
@@ -79,7 +156,7 @@ const Navbar = () => {
     //        </div>
     //      </div>
     //  </nav>
-  )
-}
+  );
+};
 
 export default Navbar;

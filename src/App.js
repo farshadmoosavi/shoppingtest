@@ -10,12 +10,17 @@ import Navbar from './components/Navbar';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 import { UserContext } from './UserContext';
+import { useState } from 'react';
 
 
 function App() {
-
+const[user, setUser] = useState({
+  isLoggedIn: false,
+  currentUserId: null,
+  currentUserName: null
+});
   return (
-    // <UserContext.provider>
+    <UserContext.Provider value={{user, setUser}}>
       <BrowserRouter>
         <Navbar />
         <div className='container-fluid'>
@@ -27,7 +32,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    // </UserContext.provider>
+    </UserContext.Provider>
   );
 }
 
