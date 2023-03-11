@@ -62,9 +62,9 @@ const Dashboard = () => {
                 {getPreviousOrders(orders).length}
               </span>
             </h4>
-
+            {/* -------------------------------------------------------- */}
             {getPreviousOrders(orders).length === 0 ? (
-              <div className="text-danger">no orders</div>
+              <div className="text-danger">no previous orders</div>
             ) : (
               ""
             )}
@@ -81,12 +81,34 @@ const Dashboard = () => {
                 />
               ); // this is an Order component ===> Order.jsx
             })}
+            {/* ------------------------------------------------------ */}
           </div>
           <div className="col-lg-6">
             <h4 className="py-2 my-2 text-primary border-bottom border-primary">
               <i className="fa fa-shopping-cart"></i> Orders In Progress{"   "}
               <span className="badge bg-primary">{getCard(orders).length}</span>
             </h4>
+            {/* ------------------------------------------------------ */}
+            {getCard(orders).length === 0 ? (
+              <div className="text-danger">no orders in progress</div>
+            ) : (
+              ""
+            )}
+            {getCard(orders).map((ord) => {
+              return(
+                <Order
+                key={ord.id}
+                productId={ord.productId}
+                userId={ord.userId}
+                isPaymentCompleted={ord.isPaymentCompleted}
+                quantity={ord.quantity}
+                orderId={ord.id}
+                product={ord.product}
+                />
+              );
+            })}
+
+            {/* ------------------------------------------------------ */}
           </div>
         </div>
       </div>
