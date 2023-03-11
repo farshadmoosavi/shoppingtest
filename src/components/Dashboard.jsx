@@ -2,14 +2,7 @@ import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import Order from "./Order";
-
-const getPreviousOrders = (orders) => {
-  return orders.filter((ord) => ord.isPaymentCompleted === true); //filter returns an array
-};
-
-const getCard = (orders) => {
-  return orders.filter((ord) => ord.isPaymentCompleted === false); //filter returns an array
-};
+import { OrdersService, ProductService } from "../Service";
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -31,16 +24,12 @@ const Dashboard = () => {
       if (ordersResponse.ok) {
         let ordersResponseBody = await ordersResponse.json();
         // get all data from products
-        let productsResponse = await fetch("http://localhost:8000/products", {
-          method: "GET",
-        });
+        let productsResponse = await ProductService.fetchProducts();
         if (productsResponse.ok) {
           let productsResponseBody = await productsResponse.json();
           ordersResponseBody.forEach((order) => {
             // adding new property (product) to the orders objects
-            order.product = productsResponseBody.find((prod) => {
-              return prod.id === order.productId;
-            });
+            order.product = ProductService.getProductByProductId(productsResponseBody, order.productId)
           });
         }
         setOrders(ordersResponseBody);
@@ -59,16 +48,16 @@ const Dashboard = () => {
             <h4 className="py-2 my-2 text-info border-bottom border-info">
               <i className="fa fa-history"></i> Previous Orders{"   "}
               <span className="badge bg-info">
-                {getPreviousOrders(orders).length}
+                {OrdersService.getPreviousOrders(orders).length}
               </span>
             </h4>
             {/* -------------------------------------------------------- */}
-            {getPreviousOrders(orders).length === 0 ? (
+            {OrdersService.getPreviousOrders(orders).length === 0 ? (
               <div className="text-danger">no previous orders</div>
             ) : (
               ""
             )}
-            {getPreviousOrders(orders).map((ord) => {
+            {OrdersService.getPreviousOrders(orders).map((ord) => {
               return (
                 <Order
                   key={ord.id}
@@ -86,24 +75,24 @@ const Dashboard = () => {
           <div className="col-lg-6">
             <h4 className="py-2 my-2 text-primary border-bottom border-primary">
               <i className="fa fa-shopping-cart"></i> Orders In Progress{"   "}
-              <span className="badge bg-primary">{getCard(orders).length}</span>
+              <span className="badge bg-primary">{OrdersService.getCard(orders).length}</span>
             </h4>
             {/* ------------------------------------------------------ */}
-            {getCard(orders).length === 0 ? (
+            {OrdersService.getCard(orders).length === 0 ? (
               <div className="text-danger">no orders in progress</div>
             ) : (
               ""
             )}
-            {getCard(orders).map((ord) => {
-              return(
+            {OrdersService.getCard(orders).map((ord) => {
+              return (
                 <Order
-                key={ord.id}
-                productId={ord.productId}
-                userId={ord.userId}
-                isPaymentCompleted={ord.isPaymentCompleted}
-                quantity={ord.quantity}
-                orderId={ord.id}
-                product={ord.product}
+                  key={ord.id}
+                  productId={ord.productId}
+                  userId={ord.userId}
+                  isPaymentCompleted={ord.isPaymentCompleted}
+                  quantity={ord.quantity}
+                  orderId={ord.id}
+                  product={ord.product}
                 />
               );
             })}
